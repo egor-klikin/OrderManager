@@ -35,82 +35,96 @@ namespace OrderManager
             customerNameLabel = new Label
             {
                 Location = new System.Drawing.Point(10, 10),
-                Text = "Имя клиента"
+                Text = "Имя клиента",
+                AccessibleName = "customerNameLabel"
             };
             customerNameTextBox = new TextBox
             {
                 Location = new System.Drawing.Point(10, 40),
-                Width = 150
+                Width = 150,
+                AccessibleName = "customerNameTextBox",
             };
             descriptionLabel = new Label
             {
                 Location = new System.Drawing.Point(170, 10),
-                Text = "Описание"
+                Text = "Описание",
+                AccessibleName = "descriptionLabel"
             };
             descriptionTextBox = new TextBox
             {
                 Location = new System.Drawing.Point(170, 40),
-                Width = 200
+                Width = 200,
+                AccessibleName = "descriptionTextBox"
             };
             dateLabel = new Label
             {
                 Location = new System.Drawing.Point(380, 10),
                 Text = "Дата создания заказа:",
                 Width = 130,
+                AccessibleName = "dateLabel"
             };
             creationDatePicker = new DateTimePicker
             {
-                Location = new System.Drawing.Point(380, 40)
+                Location = new System.Drawing.Point(380, 40),
+                AccessibleName = "creationDatePicker"
             };
             addOrderButton = new Button
             {
                 Location = new System.Drawing.Point(10, 70),
                 Text = "Добавить",
-                Width = 100
+                Width = 100,
+                AccessibleName = "addOrderButton"
             };
             addOrderButton.Click += AddOrderButton_Click;
             removeOrderButton = new Button
             {
                 Location = new System.Drawing.Point(120, 70),
                 Text = "Удалить",
-                Width = 100
+                Width = 100,
+                AccessibleName = "removeOrderButton"
             };
             removeOrderButton.Click += RemoveOrderButton_Click;
             updateStatusButton = new Button
             {
                 Location = new System.Drawing.Point(220, 70),
                 Text = "Обновить статус",
-                Width = 120
+                Width = 120,
+                AccessibleName = "updateStatusButton"
             };
             updateStatusButton.Click += UpdateStatusButton_Click;
             statusLabel = new Label
             {
                 Location = new System.Drawing.Point(370, 75),
                 Text = "Статус",
+                AccessibleName = "statusLabel"
             };
             statusComboBox = new ComboBox
             {
                 Location = new System.Drawing.Point(370, 100),
                 Width = 100,
                 Items = { "Новый", "В обработке", "Завершён" },
-                DropDownStyle = ComboBoxStyle.DropDownList
+                DropDownStyle = ComboBoxStyle.DropDownList,
+                AccessibleName = "statusComboBox"
             };
             ordersListLabel = new Label
             {
                 Location = new System.Drawing.Point(10, 100),
                 Text = "Список заказов:",
+                AccessibleName = "ordersListLabel"
             };
             ordersListBox = new ListBox
             {
                 Location = new System.Drawing.Point(10, 130),
                 Width = 660,
-                Height = 300
+                Height = 300,
+                AccessibleName = "ordersListBox"
             };
             notificationLabel = new Label
             {
                 Text = "Включить уведомления для статусов: ",
                 Location = new System.Drawing.Point(500, 70),
                 Width = 300,
+                AccessibleName = "notificationLabel"
             };
             notifyOnInProgressCheckbox = new CheckBox
             {
@@ -118,6 +132,7 @@ namespace OrderManager
                 Text = "В обработке",
                 Width = 100,
                 Checked = true,
+                AccessibleName = "notifyOnInProgressCheckBox"
             };
             notifyOnInProgressCheckbox.Click += notifyOnInProgressCheckbox_Click;
 
@@ -126,6 +141,7 @@ namespace OrderManager
                 Location = new System.Drawing.Point(600, 90),
                 Text = "Завершен",
                 Checked = true,
+                AccessibleName = "notifyOnCompletedCheckBox"
             };
             this.Controls.Add(customerNameTextBox);
             this.Controls.Add(customerNameLabel);
