@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace OrderManager
@@ -12,6 +13,7 @@ namespace OrderManager
         private TextBox descriptionTextBox;
         private Label dateLabel;
         private DateTimePicker creationDatePicker;
+        private Label statusLabel;
         private ComboBox statusComboBox;
         private Button addOrderButton;
         private Button removeOrderButton;
@@ -23,6 +25,9 @@ namespace OrderManager
             this.Text = "Управление заказами";
             this.Width = 600;
             this.Height = 500;
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             customerNameLabel = new Label
             {
                 Location = new System.Drawing.Point(10, 10),
@@ -74,9 +79,14 @@ namespace OrderManager
                 Width = 120
             };
             updateStatusButton.Click += UpdateStatusButton_Click;
+            statusLabel = new Label
+            {
+                Location = new System.Drawing.Point(370, 75),
+                Text = "Статус",
+            };
             statusComboBox = new ComboBox
             {
-                Location = new System.Drawing.Point(340, 70),
+                Location = new System.Drawing.Point(370, 100),
                 Width = 100,
                 Items = { "Новый", "В обработке", "Завершён" }
             };
@@ -85,7 +95,6 @@ namespace OrderManager
                 Location = new System.Drawing.Point(10, 100),
                 Text = "Список заказов:",
             };
-
             ordersListBox = new ListBox
             {
                 Location = new System.Drawing.Point(10, 130),
@@ -101,6 +110,7 @@ namespace OrderManager
             this.Controls.Add(addOrderButton);
             this.Controls.Add(removeOrderButton);
             this.Controls.Add(updateStatusButton);
+            this.Controls.Add(statusLabel);
             this.Controls.Add(statusComboBox);
             this.Controls.Add(ordersListLabel);
             this.Controls.Add(ordersListBox);
