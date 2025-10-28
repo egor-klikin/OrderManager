@@ -49,6 +49,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NorificationManagerTests.cs" />
     <Compile Include="OrderManagerTests.cs" />
     <Compile Include="OrderTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

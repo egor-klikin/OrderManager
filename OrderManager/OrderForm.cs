@@ -7,6 +7,7 @@ namespace OrderManager
     public partial class OrderForm : Form
     {
         private OrderManager orderManager;
+        private NotificationManager notificationManager;
         private Label customerNameLabel;
         private TextBox customerNameTextBox;
         private Label descriptionLabel;
@@ -19,11 +20,14 @@ namespace OrderManager
         private Button removeOrderButton;
         private Button updateStatusButton;
         private Label ordersListLabel;
-        private ListBox ordersListBox;
+        private ListBox ordersListBox; 
+        private Label notificationLabel;
+        private CheckBox notifyOnInProgressCheckbox;
+        private CheckBox notifyOnCompletedCheckbox;
         public OrderForm()
         {
             this.Text = "Управление заказами";
-            this.Width = 600;
+            this.Width = 750;
             this.Height = 500;
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -99,8 +103,29 @@ namespace OrderManager
             ordersListBox = new ListBox
             {
                 Location = new System.Drawing.Point(10, 130),
-                Width = 560,
+                Width = 660,
                 Height = 300
+            };
+            notificationLabel = new Label
+            {
+                Text = "Включить уведомления для статусов: ",
+                Location = new System.Drawing.Point(500, 70),
+                Width = 300,
+            };
+            notifyOnInProgressCheckbox = new CheckBox
+            {
+                Location = new System.Drawing.Point(500, 90),
+                Text = "В обработке",
+                Width = 100,
+                Checked = true,
+            };
+            notifyOnInProgressCheckbox.Click += notifyOnInProgressCheckbox_Click;
+
+            notifyOnCompletedCheckbox = new CheckBox
+            {
+                Location = new System.Drawing.Point(600, 90),
+                Text = "Завершен",
+                Checked = true,
             };
             this.Controls.Add(customerNameTextBox);
             this.Controls.Add(customerNameLabel);
@@ -115,7 +140,12 @@ namespace OrderManager
             this.Controls.Add(statusComboBox);
             this.Controls.Add(ordersListLabel);
             this.Controls.Add(ordersListBox);
+            this.Controls.Add(ordersListBox);
+            this.Controls.Add(notificationLabel);
+            this.Controls.Add(notifyOnInProgressCheckbox);
+            this.Controls.Add(notifyOnCompletedCheckbox);
             orderManager = new OrderManager();
+            notificationManager = new NotificationManager();
             UpdateOrdersList();
         }
         private void UpdateOrdersList()
@@ -205,10 +235,21 @@ namespace OrderManager
                     var orderToUpdate = orderManager.Orders.Find(o => o.CustomerName == customerName && o.Description == description && o.CreationDate == creationDate);
                     if (orderToUpdate != null)
                     {
+                        OrderStatus oldStatus = orderToUpdate.Status;
                         string str_status = statusComboBox.SelectedItem.ToString().Trim().Replace(' ', '_');
                         OrderStatus newStatus = (OrderStatus)Enum.Parse(typeof(OrderStatus), str_status);
-                        orderManager.UpdateOrderStatus(orderToUpdate, newStatus);
-                        UpdateOrdersList();
+                        if (oldStatus != newStatus)
+                        {
+                            orderManager.UpdateOrderStatus(orderToUpdate, newStatus);
+                            UpdateOrdersList();
+
+                            string message = notificationManager.NotifyStatusChange(orderToUpdate, oldStatus, newStatus);
+
+                            if (message != string.Empty)
+                            {
+                                MessageBox.Show(message, "Изменение в статусе заказа");
+                            }
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -216,6 +257,15 @@ namespace OrderManager
                     MessageBox.Show(ex.Message);
                 }
             }
+        }
+        private void notifyOnInProgressCheckbox_Click(object sender, EventArgs e)
+        {
+            notificationManager.NotifyOnInProgress = !notificationManager.NotifyOnInProgress;
+        }
+
+        private void notifyOnCompletedCheckbox_Click(object sender, EventArgs e)
+        {
+            notificationManager.NotifyOnCompleted = !notificationManager.NotifyOnCompleted;
         }
     }
 }

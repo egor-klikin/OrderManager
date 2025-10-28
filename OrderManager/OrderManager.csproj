@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NotificationManager.cs" />
     <Compile Include="OrderForm.cs">
       <SubType>Form</SubType>
     </Compile>
