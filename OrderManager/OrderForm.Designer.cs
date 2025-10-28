@@ -1,6 +1,6 @@
 ﻿namespace OrderManager
 {
-    partial class Form1
+    partial class OrderForm
     {
         /// <summary>
         /// Обязательная переменная конструктора.
